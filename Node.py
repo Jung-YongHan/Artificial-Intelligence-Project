@@ -6,6 +6,13 @@ class Node:
         self.__g = g
         self.__h = h
 
+    def __eq__(self, other):
+        return self.__position == other.__position
+
+    # heapq 정렬의 기준 만들어주기
+    def __lt__(self, other):
+        return self.__f < other.__f
+
     def set_position(self):
         pass
     def set_parent(self, parent):
