@@ -1,22 +1,11 @@
-from Astar import Astar
+import argparse
+from GridWorld import draw_world
 
 if __name__ == '__main__':
-    arr = [
-    [0, 0, 0, 0, 0],
-    [1, 1, 0, 1, 0],
-    [0, 0, 0, 0, 0],
-    [0, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0]
-]
+    parser = argparse.ArgumentParser(description="A* Algorithm Start!")
+    parser.add_argument("--M", type=int, default=30, help="Number of rows")
+    parser.add_argument("--N", type=int, default=30, help="Number of columns")
+    parser.add_argument("--inc_obstacle_ratio", type=float, default=0.2, help="Ratio of obstacle")
+    args = parser.parse_args()
 
-    start = (0, 0)
-    end = (4, 4)
-
-    # 0 - manhattan, 1 - euclidean
-    heuristic_function = 1
-
-    model = Astar(arr, start, end, heuristic_function)
-    path, explored_nodes = model.get_path()
-
-    print("PATH:", path)
-    print("Explored nodes:", explored_nodes)
+    draw_world(args.M, args.N, args.inc_obstacle_ratio)
