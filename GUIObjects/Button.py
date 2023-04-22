@@ -1,7 +1,7 @@
 import random
 import pygame
 from utils import generate_start_goal, reset_obstacles
-from AstartAlgorithm.Astar import Astar
+from AstarAlgorithm.Astar import Astar
 
 class Button:
 

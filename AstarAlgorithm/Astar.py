@@ -1,6 +1,6 @@
 from heapq import heappush, heappop
-from AstartAlgorithm.distance_functions import compute_manhattan_distance, compute_euclidean_distance
-from AstartAlgorithm.Node import Node
+from AstarAlgorithm.distance_functions import compute_manhattan_distance, compute_euclidean_distance
+from AstarAlgorithm.Node import Node
 
 class Astar:
 
