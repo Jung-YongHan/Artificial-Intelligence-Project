@@ -1,7 +1,7 @@
 import argparse
 from GridWorld import draw_world
 
-##################################예외처리 구현 필요
+################################## need to implement Exceptions
 # global window_size, grid_world_size
 # wind
 # grid_world_size = (600, 600)

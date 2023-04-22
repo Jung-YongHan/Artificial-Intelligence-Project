@@ -188,11 +188,11 @@ def draw_world(M, N, inc_obstacle_ratio):
             if not print_result:
                 print_result = True
                 if path[-1] == goal:
-                    print("목적지까지의 최단경로 분석을 완료했습니다!")
-                    print(f"탐색한 노드의 수 : {explored_node}")
+                    print("Success Finding a Shortes Path!")
+                    print(f"Explored nodes : {explored_node}")
                 else:
-                    print("목적지까지의 경로가 존재하지 않습니다!")
-                    print(f"탐색한 노드의 수 : {explored_node}")
+                    print("There are no paths to destination!")
+                    print(f"Explored nodes : {explored_node}")
 
 
         for event in pygame.event.get():
@@ -268,7 +268,7 @@ def draw_world(M, N, inc_obstacle_ratio):
                 if drag_start:
                     new_x = event.pos[0] + offset_x
                     new_y = event.pos[1] + offset_y
-                    if is_valid(new_x, new_y, cell_width, cell_height, grid_world):
+                    if is_valid_drag(new_x, new_y, cell_width, cell_height, grid_world):
                         grid_world[prev_start[0]][prev_start[1]] = 'O'
 
                         start_rect.x = new_x
@@ -281,7 +281,7 @@ def draw_world(M, N, inc_obstacle_ratio):
                 if drag_goal:
                     new_x = event.pos[0] + offset_x
                     new_y = event.pos[1] + offset_y
-                    if is_valid(new_x, new_y, cell_width, cell_height, grid_world):
+                    if is_valid_drag(new_x, new_y, cell_width, cell_height, grid_world):
                         grid_world[prev_goal[0]][prev_goal[1]] = 'O'
 
                         goal_rect.x = new_x
