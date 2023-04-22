@@ -1,7 +1,7 @@
 import pygame
 
 class RadioButton:
-    def __init__(self, text, x, y, width, font, button_color, text_color, radius):
+    def __init__(self, text, x, y, width, font, button_color, text_color, radius, unique):
         self.x = x
         self.y = y
         self.width = width
@@ -11,6 +11,7 @@ class RadioButton:
         self.text_color = text_color
         self.radius = radius
         self.selected = False
+        self.unique = unique
 
     def draw_radio_button(self, screen):
         pygame.draw.circle(screen, self.button_color, (self.x, self.y), self.radius, self.width)

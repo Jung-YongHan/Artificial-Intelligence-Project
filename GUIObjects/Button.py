@@ -1,6 +1,6 @@
 import random
 import pygame
-from utils import generate_start_goal, set_randomly_obstacles, reset_obstacles
+from utils import generate_start_goal, reset_obstacles
 from AstartAlgorithm.Astar import Astar
 
 class Button:
@@ -14,6 +14,7 @@ class Button:
         self.font = font
         self.button_color = button_color
         self.text_color = text_color
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
 
     def draw_button(self, screen):
@@ -21,6 +22,9 @@ class Button:
         button_text = self.font.render(self.text, True, self.text_color)
         text_rect = button_text.get_rect(center=(self.x + self.width // 2, self.y + self.height // 2))
         screen.blit(button_text, text_rect)
+
+    def is_clicked(self, pos):
+        return self.rect.collidepoint(pos)
 
     # A* 알고리즘 실행
     def start_Astar_search(self, grid_world, start, end, heuristic_function):
@@ -30,6 +34,7 @@ class Button:
 
     # 장애물 랜덤 배치
     def set_randomly_obstacles(self, grid_world, num_obstacles):
+        reset_obstacles(grid_world)
         rows, cols = len(grid_world), len(grid_world[0])
         for _ in range(num_obstacles):
             while True:
@@ -40,6 +45,6 @@ class Button:
 
     # 리셋
     def reset_grid_world(self, M, N, inc_obstacle_ratio, grid_world):
-        reset_obstacle(grid_world)
+        reset_obstacles(grid_world)
         start, end = generate_start_goal(M, N, grid_world)
         return start, end
