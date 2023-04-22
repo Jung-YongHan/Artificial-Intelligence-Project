@@ -1,6 +1,6 @@
 from heapq import heappush, heappop
-from distance_functions import compute_manhattan_distance, compute_euclidean_distance
-from Node import Node
+from AstartAlgorithm.distance_functions import compute_manhattan_distance, compute_euclidean_distance
+from AstartAlgorithm.Node import Node
 
 class Astar:
 
@@ -20,14 +20,15 @@ class Astar:
             nx = x + dx
             ny = y + dy
             if 0 <= nx < len(arr) and 0 <= ny < len(arr[0]):
-                if arr[nx][ny] != 1:
+                if arr[nx][ny] != 'X':
                     node_list.append(Node((nx, ny), node))
         return node_list
 
     def compute_distance(self, a, b):
         if self.heuristic_fucntion:
-            return compute_manhattan_distance(a, b)
-        return compute_euclidean_distance(a, b)
+            return compute_euclidean_distance(a, b)
+        return compute_manhattan_distance(a, b)
+
 
     def get_path(self):
         start_node = Node(self.start, g=0, h=self.compute_distance(self.start, self.end))
@@ -66,8 +67,6 @@ class Astar:
                             heappush(open_list, neighbor)
 
         if not path:
-            print("목적지까지의 경로가 존재하지 않습니다.")
-
             lowest_f_node = min(close_list, key=lambda node: node.get_f())
             best_path = []
 
