@@ -40,11 +40,13 @@ The algorithms implemented so far are as follows.<br>
 ---
 ### Usage!
 1. clone this repository
->git clone https://github.com/Jung-YongHan/MiniPathFinder.git
+
+```git clone https://github.com/Jung-YongHan/MiniPathFinder.git```
 
 2. using console or IDE(like Pycham, vsc, etc.)
 
     if you use a console, code following
->python main.py --M 30 --N 30 --inc_obstacle_ratio 0.2
+    
+```python main.py --M 30 --N 30 --inc_obstacle_ratio 0.2```
 
 ...
