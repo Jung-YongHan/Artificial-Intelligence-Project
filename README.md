@@ -1,7 +1,5 @@
 # MiniPathFinder
 
----
-
 This repository is a mini project that visualizes algorithms 
 for analyzing the shortest path between the starting point and the destination.
 
