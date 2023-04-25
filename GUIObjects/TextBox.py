@@ -16,3 +16,7 @@ class TextBox:
         text_box = self.font.render(self.text, True, self.text_color)
         text_rect = text_box.get_rect(center=(self.x + self.width // 2, self.y + self.height // 2))
         screen.blit(text_box, text_rect)
+
+    def is_collide_point(self, pos):
+        rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        return rect.collidepoint(pos[0], pos[1])

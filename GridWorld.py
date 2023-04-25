@@ -149,13 +149,11 @@ def draw_world(M, N, inc_obstacle_ratio):
         obstacle_count_text = font1.render(f"Obstacles: {count_obstacles(grid_world)}", True, black)
         screen.blit(obstacle_count_text, (window_size[0] - 150, window_size[1] - 35))
 
-        # 시작, 도착
-        start_rect = pygame.draw.rect(screen, blue,
-                                      (75 + start[1] * cell_width, 100 + start[0] * cell_height, cell_width,
-                                       cell_height))
-        goal_rect = pygame.draw.rect(screen, red,
-                                     (75 + goal[1] * cell_width, 100 + goal[0] * cell_height, cell_width, cell_height))
-
+        # 시작, 도착 박스
+        start_text_box = TextBox("S", 75 + start[1] * cell_width, 100 + start[0] * cell_height, cell_width, cell_height, font1, blue, white)
+        goal_text_box = TextBox("G", 75 + goal[1] * cell_width, 100 + goal[0] * cell_height, cell_width, cell_height, font1, red, white)
+        start_text_box.draw_text_box(screen)
+        goal_text_box.draw_text_box(screen)
 
         # 장애물
         for row in range(M):
@@ -169,6 +167,7 @@ def draw_world(M, N, inc_obstacle_ratio):
                     pygame.draw.rect(screen, black,
                                      (75 + (col * cell_width), 100 + (row * cell_height), cell_width, cell_height), 1)
 
+        # 0.05초 간격 경로 그리기
         if not line_finished and astar_start:
             lines = []
             for i in range(len(path) - 1):
@@ -182,6 +181,7 @@ def draw_world(M, N, inc_obstacle_ratio):
                 pygame.display.flip()
             line_finished = True
 
+        # 경로 유지 및 결과 콘솔 출력
         if line_finished and astar_start:
             for line_start, line_end in lines:
                 pygame.draw.line(screen, (255, 255, 0), line_start, line_end, 5)
@@ -194,7 +194,7 @@ def draw_world(M, N, inc_obstacle_ratio):
                     print("There are no paths to destination!")
                     print(f"Explored nodes : {explored_node}")
 
-
+        # events
         for event in pygame.event.get():
             # x 버튼 클릭 시 윈도우 종료
             if event.type == pygame.QUIT:
@@ -248,12 +248,12 @@ def draw_world(M, N, inc_obstacle_ratio):
 
                         # 드래그 Action
                         pos = pygame.mouse.get_pos()
-                        if start_rect.collidepoint(pos):
+                        if start_text_box.is_collide_point(pos):
                             drag_start = True
-                            offset_x, offset_y = start_rect.x - pos[0], start_rect.y - pos[1]
-                        if goal_rect.collidepoint(pos):
+                            offset_x, offset_y = start_text_box.x - pos[0], start_text_box.y - pos[1]
+                        if goal_text_box.is_collide_point(pos):
                             drag_goal = True
-                            offset_x, offset_y = goal_rect.x - pos[0], goal_rect.y - pos[1]
+                            offset_x, offset_y = goal_text_box.x - pos[0], goal_text_box.y - pos[1]
 
                         # 장애물 Action
                         if is_valid(event.pos[0], event.pos[1], cell_width, cell_height, grid_world):
@@ -271,9 +271,9 @@ def draw_world(M, N, inc_obstacle_ratio):
                     if is_valid_drag(new_x, new_y, cell_width, cell_height, grid_world):
                         grid_world[prev_start[0]][prev_start[1]] = 'O'
 
-                        start_rect.x = new_x
-                        start_rect.y = new_y
-                        start = (start_rect.y - 100) // cell_height, (start_rect.x - 75) // cell_width
+                        start_text_box.x = new_x
+                        start_text_box.y = new_y
+                        start = (start_text_box.y - 100) // cell_height, (start_text_box.x - 75) // cell_width
 
                         grid_world[start[0]][start[1]] = 'S'
                         prev_start = start
@@ -284,9 +284,9 @@ def draw_world(M, N, inc_obstacle_ratio):
                     if is_valid_drag(new_x, new_y, cell_width, cell_height, grid_world):
                         grid_world[prev_goal[0]][prev_goal[1]] = 'O'
 
-                        goal_rect.x = new_x
-                        goal_rect.y = new_y
-                        goal = (goal_rect.y - 100) // cell_height, (goal_rect.x - 75) // cell_width
+                        goal_text_box.x = new_x
+                        goal_text_box.y = new_y
+                        goal = (goal_text_box.y - 100) // cell_height, (goal_text_box.x - 75) // cell_width
 
                         grid_world[goal[0]][goal[1]] = 'G'
                         prev_goal = goal
