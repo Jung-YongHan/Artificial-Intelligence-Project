@@ -94,7 +94,6 @@ def draw_world(M, N, inc_obstacle_ratio):
     pygame.display.set_caption("Find a shortest path with A* Algorithm!")
 
     grid_world = [['O' for _ in range(N)] for _ in range(M)]
-    ###### 그리드 만들어서 장애물, 시작, 도착지점 구현하기
 
     # 그리드 셀 크기 계산
     cell_width = grid_world_size[0] // M
@@ -150,8 +149,10 @@ def draw_world(M, N, inc_obstacle_ratio):
         screen.blit(obstacle_count_text, (window_size[0] - 150, window_size[1] - 35))
 
         # 시작, 도착 박스
-        start_text_box = TextBox("S", 75 + start[1] * cell_width, 100 + start[0] * cell_height, cell_width, cell_height, font1, blue, white)
-        goal_text_box = TextBox("G", 75 + goal[1] * cell_width, 100 + goal[0] * cell_height, cell_width, cell_height, font1, red, white)
+        start_text_box = TextBox("S", 75 + start[1] * cell_width, 100 + start[0] * cell_height,
+                                 cell_width, cell_height, font1, blue, white)
+        goal_text_box = TextBox("G", 75 + goal[1] * cell_width, 100 + goal[0] * cell_height,
+                                cell_width, cell_height, font1, red, white)
         start_text_box.draw_text_box(screen)
         goal_text_box.draw_text_box(screen)
 
@@ -268,7 +269,7 @@ def draw_world(M, N, inc_obstacle_ratio):
                 if drag_start:
                     new_x = event.pos[0] + offset_x
                     new_y = event.pos[1] + offset_y
-                    if is_valid_drag(new_x, new_y, cell_width, cell_height, grid_world):
+                    if is_valid_drag(new_x, new_y, cell_width, cell_height, grid_world, 0):
                         grid_world[prev_start[0]][prev_start[1]] = 'O'
 
                         start_text_box.x = new_x
@@ -281,7 +282,7 @@ def draw_world(M, N, inc_obstacle_ratio):
                 if drag_goal:
                     new_x = event.pos[0] + offset_x
                     new_y = event.pos[1] + offset_y
-                    if is_valid_drag(new_x, new_y, cell_width, cell_height, grid_world):
+                    if is_valid_drag(new_x, new_y, cell_width, cell_height, grid_world, 1):
                         grid_world[prev_goal[0]][prev_goal[1]] = 'O'
 
                         goal_text_box.x = new_x

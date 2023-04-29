@@ -3,7 +3,7 @@ from GridWorld import draw_world
 
 def check_mn(value):
     ivalue = int(value)
-    if ivalue < 10 or ivalue > 60:
+    if ivalue < 2 or ivalue > 60:
         raise argparse.ArgumentTypeError("M and N must be between 2 and 60")
     return ivalue
 
