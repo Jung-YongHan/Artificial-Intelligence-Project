@@ -20,13 +20,16 @@ def reset_obstacles(grid_world):
 
 def is_valid(new_x, new_y, cell_width, cell_height, grid_world):
     row, col = (new_y-100)//cell_height, (new_x-75)//cell_width
-    # 마우스 클릭 위치가 그리드 월드 내에 있는지 확인합니다.
     return 75 <= new_x <= 675 and 100 <= new_y <= 700
 
-def is_valid_drag(new_x, new_y, cell_width, cell_height, grid_world):
-    row, col = (new_y-100)//cell_height, (new_x-75)//cell_width
-    # 마우스 클릭 위치가 그리드 월드 내에 있는지 확인합니다.
-    return 75 <= new_x <= 675 and 100 <= new_y <= 700 and grid_world[row][col] != 'X'
+def is_valid_drag(new_x, new_y, cell_width, cell_height, grid_world, start_goal):
+    row, col = (new_y - 100) // cell_height, (new_x - 75) // cell_width
+    if not start_goal:
+        return 75 <= new_x <= 675 and 100 <= new_y <= 700 and grid_world[row][col] != 'X' \
+            and grid_world[row][col] != 'G'
+    else:
+        return 75 <= new_x <= 675 and 100 <= new_y <= 700 and grid_world[row][col] != 'X' \
+            and grid_world[row][col] != 'S'
 
 def toggle_obstacle(pos, cell_width, cell_height, grid_world):
     x, y = pos
